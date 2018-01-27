@@ -1,0 +1,86 @@
+<html>
+<head>
+	<title>Amazon web services</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</head>
+	<body>
+	<style>
+		dialog{
+	border:1px solid #0275d8;
+	border-radius: 10px;
+	z-index:1;
+}
+		</style>
+		<% if (message==1){%>
+			<dialog open>  
+				<center>
+					<h3>
+						Success!
+					</h3>
+				</center>  
+				<center>
+					<p>
+						File was delete
+					</p>
+				</center>
+				<center>
+					<button class="btn btn-primary px-5" role="button" onclick="location.href='http://localhost:8080/list'">
+						OK
+					</button>
+				</center>
+			</dialog>  
+		<%}%>		
+	    <% if (message==2){%>
+			<dialog open>  
+				<center>
+					<h3>
+						Success!
+					</h3>
+				</center>  
+				<center>
+					<p>
+						Task sent to sqs!
+					</p>
+				</center>
+				<center>
+					<button class="btn btn-primary px-5" role="button" onclick="location.href='http://localhost:8080/list'">
+						OK
+					</button>
+				</center>
+			</dialog>  
+		<%}%>	
+		<h2 class="text-center">
+			Object list in bucket 
+			<b><%= bucket %></b> :
+		</h2>
+		<div class="text-center">        
+			<% for(var i=0; i<fields.length; i++) { %>		
+				<div>
+					<a href='<%= adresy[i] %>'>
+						<img src="<%= adresy[i] %>"
+						     alt="<%=names[i]%>"
+							 style="width:200px;height:200px;">
+					</a>
+				</div>
+				<div>
+					<form id="actionform"
+					      name="wartosc"
+						  action="http://localhost:8080/action"
+						  method='get'>
+						<input type="hidden"
+         		               name='klucz'
+							   value="<%= fields[i] %>"/>
+						<input type="submit" class="btn btn-outline-primary" role="button"
+                               value="Rotate with scale"/>
+						<input type="button" class="btn btn-outline-primary" role="button"
+                               onclick="location.href='http://localhost:8080/delete?klucz=<%= fields[i] %>'"
+							   value="Delete"/>
+					</form>
+				</div>		
+			<% } %>   
+		</div>
+	</body>
+</html>
